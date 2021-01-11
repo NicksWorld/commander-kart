@@ -6,7 +6,7 @@ ASFLAGS=-t cx16
 CFLAGS=-t cx16 -O
 LDFLAGS=-t cx16 -O
 
-OBJECTS=src/main.o src/menu.o src/track.o
+OBJECTS=src/main.o src/menu.o src/track.o src/vera.o
 
 COMMANDERKART.PRG: $(OBJECTS)
 	$(LD) $(LDFLAGS) -o $@ $^
