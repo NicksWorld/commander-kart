@@ -1,0 +1,7 @@
+#define COLOR_GRASS_DARK 132
+#define COLOR_GRASS_LIGHT 133
+#define COLOR_ROAD 21
+#define COLOR_SKY 156
+
+#define RENDER_TOP 0
+#define RENDER_BOTTOM 100
