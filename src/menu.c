@@ -12,7 +12,7 @@ int player_selection(void) {
 	segments[1] = 0;
 	segments[2] = 0;
 	segments[3] = 0;
-	render_track(segments, 4, 0, 4, RENDER_BOTTOM);
+	render_track(segments, 4, 0, RENDER_BOTTOM);
 	// ...
 	return 0;
 }
