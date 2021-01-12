@@ -10,13 +10,27 @@
 
 #define Y_SIZE 30 // Initially 25
 
+/*
+  How it works:
+  There are 4 segments rendered at a time (defined as the angles in angle[]).
+  Each segment is affected by its own angle in addition to the previous angles.
+
+  x, dx = See https://codeincomplete.com/articles/javascript-racer-v2-curves/
+
+  old_mid = Helps adjust for the lack of floating point math.
+  This variable causes any lost values to be made up before the next segment.
+
+  vera_track(color, row_num, left_side, right_side) = Draws the road using the
+  VERA on a 320x240 8bpp bitmap at the address $00000. Responsible for drawing
+  the grass on top of the road color layer.
+ */
 void render_track(signed char angle[], int length, int start_index, int offset) {
-	int left, right, segment, middle, x, dx, angle_index, row, y, old_mid, total_rows;
-	middle = 320;
-	dx = angle[start_index];
+	int left, right, segment, middle, x, dx, angle_index, row, y, old_mid;
+	middle = 160; // 320 / 2
+	dx = angle[start_index] >> 1; // Lessen the initial angle (Optional)
 	x = 0;
 	angle_index = start_index;
-	total_rows = 100;
+	
 	for(segment = 0; segment < 4; ++segment) {
 		if(angle_index >= length) {
 			angle_index = 0;
@@ -27,9 +41,9 @@ void render_track(signed char angle[], int length, int start_index, int offset) 
 			left = middle - ((row << 1) + ROAD_WIDTH);
 			right = middle + ((row << 1) + ROAD_WIDTH);
 			if(segment & 1) {
-				vera_track(COLOR_GRASS_LIGHT, offset + row, left, right);
+			  vera_track(COLOR_GRASS_LIGHT, offset + row, left, right);
 			} else {
-				vera_track(COLOR_GRASS_DARK, offset + row, left, right);
+			  vera_track(COLOR_GRASS_DARK, offset + row, left, right);
 			}
 			middle = old_mid - (((x + dx) * y) / Y_SIZE);
 		}

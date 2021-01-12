@@ -1,7 +1,6 @@
 // Created by Alexander Hill and Nicholas McDaniel
 
 #include <cx16.h>
-#include <tgi.h>
 
 #include "menu.h"
 #include "vera.h"
